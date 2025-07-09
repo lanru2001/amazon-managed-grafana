@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    alb.ingress.kubernetes.io/healthcheck-path: /ready
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+    alb.ingress.kubernetes.io/scheme: internal
+    alb.ingress.kubernetes.io/security-groups: "${SECURITY_GROUP_IDS}"
+    alb.ingress.kubernetes.io/subnets: "${SUBNET_IDS}"
+    alb.ingress.kubernetes.io/healthcheck-interval-seconds: '300'
+    alb.ingress.kubernetes.io/healthcheck-timeout-seconds: '100'
+    alb.ingress.kubernetes.io/tags: Target=lasso-tempo
+    alb.ingress.kubernetes.io/target-type: ip
+    kubernetes.io/ingress.class: alb
+  finalizers:
+  - ingress.k8s.aws/resources
+  name: tempo-ingress
+  namespace: monitoring
+spec:
+  ingressClassName: alb
+  rules:
+  - http:
+      paths:
+      - backend:
+          service:
+            name: tempo
+            port:
+              number: 3100
+        path: /
+        pathType: Prefix
