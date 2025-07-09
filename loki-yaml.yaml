@@ -1,0 +1,225 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    alb.ingress.kubernetes.io/healthcheck-interval-seconds: "300"
+    alb.ingress.kubernetes.io/healthcheck-path: /ready
+    alb.ingress.kubernetes.io/healthcheck-timeout-seconds: "100"
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+    alb.ingress.kubernetes.io/scheme: internal
+    alb.ingress.kubernetes.io/security-groups: 
+    alb.ingress.kubernetes.io/subnets: 
+    alb.ingress.kubernetes.io/tags: Target=lasso-loki
+    alb.ingress.kubernetes.io/target-type: ip
+    kubernetes.io/ingress.class: alb
+    meta.helm.sh/release-name: loki
+    meta.helm.sh/release-namespace: monitoring
+    pullPolicy: IfNotPresent
+  creationTimestamp: "2025-07-08T15:50:53Z"
+  finalizers:
+  - ingress.k8s.aws/resources
+  generation: 1
+  labels:
+    app.kubernetes.io/instance: loki
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: loki
+    app.kubernetes.io/version: 3.1.1
+    helm.sh/chart: loki-6.18.0
+  name: loki
+  namespace: monitoring
+  resourceVersion: "191216439"
+  uid: 822240e7-18c0-4013-9e36-8f6371582ab4
+spec:
+  ingressClassName: alb
+  rules:
+  - http:
+      paths:
+      - backend:
+          service:
+            name: loki-read
+            port:
+              number: 3100
+        path: /api/prom/query
+        pathType: Prefix
+      - backend:
+          service:
+            name: loki-read
+            port:
+              number: 3100
+        path: /api/prom/label
+        pathType: Prefix
+      - backend:
+          service:
+            name: loki-read
+            port:
+              number: 3100
+        path: /api/prom/series
+        pathType: Prefix
+      - backend:
+          service:
+            name: loki-read
+            port:
+              number: 3100
+        path: /api/prom/tail
+        pathType: Prefix
+      - backend:
+          service:
+            name: loki-read
+            port:
+              number: 3100
+        path: /loki/api/v1/query
+        pathType: Prefix
+      - backend:
+          service:
+            name: loki-read
+            port:
+              number: 3100
+        path: /loki/api/v1/query_range
+        pathType: Prefix
+      - backend:
+          service:
+            name: loki-read
+            port:
+              number: 3100
+        path: /loki/api/v1/tail
+        pathType: Prefix
+      - backend:
+          service:
+            name: loki-read
+            port:
+              number: 3100
+        path: /loki/api/v1/label
+        pathType: Prefix
+      - backend:
+          service:
+            name: loki-read
+            port:
+              number: 3100
+        path: /loki/api/v1/labels
+        pathType: Prefix
+      - backend:
+          service:
+            name: loki-read
+            port:
+              number: 3100
+        path: /loki/api/v1/series
+        pathType: Prefix
+      - backend:
+          service:
+            name: loki-read
+            port:
+              number: 3100
+        path: /loki/api/v1/index/stats
+        pathType: Prefix
+      - backend:
+          service:
+            name: loki-read
+            port:
+              number: 3100
+        path: /loki/api/v1/index/volume
+        pathType: Prefix
+      - backend:
+          service:
+            name: loki-read
+            port:
+              number: 3100
+        path: /loki/api/v1/index/volume_range
+        pathType: Prefix
+      - backend:
+          service:
+            name: loki-read
+            port:
+              number: 3100
+        path: /loki/api/v1/format_query
+        pathType: Prefix
+      - backend:
+          service:
+            name: loki-read
+            port:
+              number: 3100
+        path: /loki/api/v1/detected_field
+        pathType: Prefix
+      - backend:
+          service:
+            name: loki-read
+            port:
+              number: 3100
+        path: /loki/api/v1/detected_fields
+        pathType: Prefix
+      - backend:
+          service:
+            name: loki-read
+            port:
+              number: 3100
+        path: /loki/api/v1/detected_labels
+        pathType: Prefix
+      - backend:
+          service:
+            name: loki-read
+            port:
+              number: 3100
+        path: /loki/api/v1/patterns
+        pathType: Prefix
+      - backend:
+          service:
+            name: loki-write
+            port:
+              number: 3100
+        path: /api/prom/push
+        pathType: Prefix
+      - backend:
+          service:
+            name: loki-write
+            port:
+              number: 3100
+        path: /loki/api/v1/push
+        pathType: Prefix
+      - backend:
+          service:
+            name: loki-write
+            port:
+              number: 3100
+        path: /otlp/v1/logs
+        pathType: Prefix
+      - backend:
+          service:
+            name: loki-backend
+            port:
+              number: 3100
+        path: /api/prom/rules
+        pathType: Prefix
+      - backend:
+          service:
+            name: loki-backend
+            port:
+              number: 3100
+        path: /api/prom/api/v1/rules
+        pathType: Prefix
+      - backend:
+          service:
+            name: loki-backend
+            port:
+              number: 3100
+        path: /api/prom/api/v1/alerts
+        pathType: Prefix
+      - backend:
+          service:
+            name: loki-backend
+            port:
+              number: 3100
+        path: /loki/api/v1/rules
+        pathType: Prefix
+      - backend:
+          service:
+            name: loki-backend
+            port:
+              number: 3100
+        path: /prometheus/api/v1/rules
+        pathType: Prefix
+      - backend:
+          service:
+            name: loki-backend
+            port:
+              number: 3100
+        path: /prometheus/api/v1/alerts
+        pathType: Prefix
