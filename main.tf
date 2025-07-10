@@ -4,11 +4,6 @@ data "aws_lb" "prometheus" {
   }
 }
 
-data "aws_lb" "tempo" {
-  tags = {
-    Target = "dlframe-tempo"
-  }
-}
 
 data "aws_lb" "loki" {
   tags = {
@@ -20,8 +15,8 @@ module "managed_grafana" {
   source = "terraform-aws-modules/managed-service-grafana/aws"
 
   # Workspace
-  name                     = "dlframe"
-  description              = "AWS Managed Grafana service workspace for dlframe client"
+  name                     = "Lasso"
+  description              = "AWS Managed Grafana service workspace for Lasso client"
   account_access_type      = "CURRENT_ACCOUNT"
   authentication_providers = ["AWS_SSO"]
   permission_type          = "SERVICE_MANAGED"
@@ -67,7 +62,7 @@ module "managed_grafana" {
   tags = {
     Environment = var.environment
     Terraform   = "true"
-    Project     = "staging"
+    Project     = "dev"
   }
 }
 
@@ -89,6 +84,16 @@ resource "grafana_data_source" "loki" {
   type               = "loki"
   url                = "http://${data.aws_lb.loki.dns_name}"
     basic_auth_enabled = false
+  is_default         = false
+}
+
+resource "grafana_data_source" "tempo" {
+  provider = grafana.cloud
+
+  name               = "tempo"
+  type               = "tempo"
+  url                = "http://${data.aws_lb.tempo.dns_name}"
+  basic_auth_enabled = false
   is_default         = false
 }
 
