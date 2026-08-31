@@ -1,14 +1,26 @@
-variable "environment" {
-  description = "Deployment environment identifier"
-  type        = string
-}
+#===========================================
+# VARIABLES
+#===========================================
 
-variable "vpc_private_subnets" {
-  description = "The private subnets for the VPC"
-  type        = list(string)
-}
+variable "name" {}  
+variable "description" {}   
+variable "account_access_type" {}                  
+variable "authentication_providers" {}
+variable "permission_type" {}
+variable "data_sources" {}
+variable "associate_license" {} 
+variable "vpc_private_subnets_cidr_blocks" {}
+variable "vpc_private_subnets" {}
+variable "grafana_role" {}
+variable "project" {}
+variable "environment" {}
+variable "prometheus_record_name" {}
+variable "loki_record_name" {}
+variable "auth_username" {}
+variable "auth_password" {}
+variable "cluster_name" {}
 
-variable "vpc_private_subnets_cidr_blocks" {
-  description = "The CIDR blocks for the private subnets"
-  type        = list(string)
+variable "grafana_token" {
+  type      = string
+  sensitive = true
 }
