@@ -1,0 +1,17 @@
+name                     = "dev-model-grafana"
+description              = "AWS Managed Grafana service workspace for dlframe client"
+account_access_type      = "CURRENT_ACCOUNT"
+authentication_providers = ["AWS_SSO"]
+permission_type          = "SERVICE_MANAGED"
+data_sources             = ["PROMETHEUS"]
+associate_license        = false
+vpc_private_subnets      = ["subnet-xxxxxxxxxxxx","subnet-0xxxxxxxxxxxx","subnet-0b8xxxxxxxxxxxxxxxx] 
+vpc_private_subnets_cidr_blocks = ["10.17.128.0/19"]
+project                  = "Models"
+environment              = "dev"
+prometheus_record_name   = "prometheus.dev.model.com"
+loki_record_name         = "loki.dev.model.com"
+grafana_role             = "ADMIN"
+auth_username            = "admin"
+auth_password            = "openSourcePrometheusApi"
+cluster_name             = "dev-model-eks"
